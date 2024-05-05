@@ -1,0 +1,61 @@
+<!--map start here-->
+<script type="text/javascript" src="https://atlas.microsoft.com/sdk/javascript/mapcontrol/2/atlas.min.js"></script>
+<div id="myMap" style="height: 400px;"></div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="https://atlas.microsoft.com/sdk/javascript/mapcontrol/2/atlas.min.js"></script>
+    <title>Azure Maps Example</title>
+</head>
+<body>
+
+    <div id="myMap" style="height: 400px;"></div>
+
+    <script type="text/javascript">
+        function initializeMap(center, zoom, subscriptionKey) {
+            var map, datasource;
+
+            map = new atlas.Map('myMap', {
+                center: center,
+                zoom: zoom,
+                view: 'Auto',
+                authOptions: {
+                    authType: 'subscriptionKey',
+                    subscriptionKey: subscriptionKey
+                }
+            });
+
+            datasource = new atlas.source.DataSource();
+            map.sources.add(datasource);
+
+            var layer = new atlas.layer.SymbolLayer(datasource, null, {
+                iconOptions: {
+                    image: 'pin-round-blue',
+                    anchor: 'center',
+                    allowOverlap: true
+                }
+            });
+
+            map.layers.add(layer);
+
+            var point = new atlas.data.Point(center);
+            datasource.add(new atlas.data.Feature(point));
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            // Adjust these parameters as needed
+            var mapCenter = [-122.33, 47.6];
+            var mapZoom = 12;
+            var azureMapsSubscriptionKey = 'GCOL4263rpOA2Oxa6n8jPAf5-FMlpYaV6tiE41JZbos';
+
+            // Call the initializeMap function with the parameters
+            initializeMap(mapCenter, mapZoom, azureMapsSubscriptionKey);
+        });
+    </script>
+</body>
+</html>
+
+
+<!--map end here-->
